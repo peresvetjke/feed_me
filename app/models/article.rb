@@ -4,6 +4,8 @@ class Article
 
   field :title, type: String
   field :body, type: String
+  field :url, type: String
+  field :publication_date, type: DateTime
 
   belongs_to :source
 
