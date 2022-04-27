@@ -43,6 +43,8 @@ gem "bootsnap", require: false
 # gem "sassc-rails"
 
 gem 'mongoid'
+gem 'capybara'
+gem 'webdrivers'
 gem 'pry'
 
 group :development, :test do

@@ -1,0 +1,1 @@
+UploadInfo = Struct.new(:records_in, :new_articles, :records_created, :records_out, keyword_init: true)
