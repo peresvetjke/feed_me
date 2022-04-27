@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title FeedMe
+    meta content="width=device-width,initial-scale=1" name="viewport"
+      = csrf_meta_tags
+      = csp_meta_tag
+      
+      = stylesheet_link_tag "application", "data-turbo-track": "reload"
+      = javascript_importmap_tags
+
+      link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+      script src="//code.jquery.com/jquery-1.11.3.min.js"
+      
+  body
+    = render "shared/notice"
+    p.alert = alert
+      
+    = yield

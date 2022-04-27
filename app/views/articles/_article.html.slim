@@ -1,0 +1,11 @@
+  .article data-controller="article" data-article-body-is-visible="false" data-action="click->article#click"
+    .article_title 
+      = article.title
+      span.is-size-7 
+        = "  ("
+        = link_to "src", article.url
+        = ", "
+        = date(article.publication_date)
+        = ")"
+
+    p.article_body.hide data-article-target="body" = article.body
