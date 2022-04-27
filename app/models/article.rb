@@ -2,6 +2,8 @@ class Article
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  default_scope ->{ order(publication_date: :desc) }
+
   field :title, type: String
   field :body, type: String
   field :url, type: String

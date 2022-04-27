@@ -3,5 +3,6 @@ FactoryBot.define do
     association :source, factory: :source
     title { generate(:title) }
     body  { "text" }
+    publication_date { Time.now }
   end
 end
