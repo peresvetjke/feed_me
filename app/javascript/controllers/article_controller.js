@@ -20,11 +20,6 @@ export default class extends Controller {
     }
   }
 
-  rightClick(e) {
-    e.preventDefault()
-    console.log("rightclick")
-  }
-
   click() {
     this.bodyIsVisibleValue = !this.bodyIsVisibleValue
     this.updateVisibility(this.bodyTarget, this.bodyIsVisibleValue)
