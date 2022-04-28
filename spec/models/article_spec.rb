@@ -6,7 +6,6 @@ RSpec.describe Article, type: :model do
     it_behaves_like "has_many", { associations: :reads, dependent_destroy: true }
   end
 
-
   describe 'validations' do
     it_behaves_like "validates_presence_of", :title
     it_behaves_like "validates_presence_of", :body
