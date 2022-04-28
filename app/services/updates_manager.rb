@@ -1,6 +1,7 @@
 class UpdatesManager
   SERVICES = [
-    { source_title: "Новая газета", service_name: NovayaGazetaArticlesRetriever }
+    { source_title: "Новая газета", service_name: NovayaGazetaArticlesRetriever },
+    { source_title: "Медуза", service_name: MeduzaArticlesRetriever }
   ]
 
   Retriever = Struct.new(:source_title, :service_name, :source, keyword_init: true)
@@ -22,21 +23,13 @@ class UpdatesManager
 
   def update
     @services.each do |update_service| 
-      logger.info("Starting '#{update_service.source_title}' uploading...")
-      time = Time.now
-
       service = update_service.service_name.new(
         source: update_service.source, 
-        logger: @logger
+        logger: logger
       )
 
-      if service.call
-        logger.info("Uploading has been succesfully finished.\n
-          It took: #{Time.now - time} seconds. \n\
-          Records in: #{service.upload_info.records_in}; \n\
-          found new: #{service.upload_info.new_articles}; records created: #{service.upload_info.records_created}; \n\
-          records out: #{service.upload_info.records_out}")
-      end
+
+      service.call
     end
   end
 
