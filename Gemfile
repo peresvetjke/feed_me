@@ -47,6 +47,7 @@ gem 'capybara'
 gem 'webdrivers'
 gem 'pry'
 gem 'slim-rails'
+gem 'devise'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

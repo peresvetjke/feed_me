@@ -5,8 +5,6 @@ class UpdatesManager
 
   Retriever = Struct.new(:source_title, :service_name, :source, keyword_init: true)
 
-  # um = UpdatesManager.new
-
   def initialize
     @services = []
   end

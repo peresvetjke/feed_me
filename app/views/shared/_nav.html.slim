@@ -1,0 +1,14 @@
+.navbar-menu
+  .navbar-start
+  
+  .navbar-end
+    - if user_signed_in?
+      .navbar-item.has-dropdown.is-hoverable.account
+        .navbar-link
+          = current_user.email
+
+        .navbar-dropdown
+          = link_to "Sign out", destroy_user_session_path, class: "navbar-item"
+
+    - else
+      span.ms-1 = link_to "Sign in", new_user_session_path, class: "navbar-item"
