@@ -22,5 +22,3 @@ User.create!(
   email: "customer@example.com",
   password: "xxxxxx"
 )
-
-# UpdatesManager.new.call

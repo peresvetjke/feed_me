@@ -14,12 +14,12 @@ class ArticlesRetriever
   end
 
   def call
-    @logger.info("Starting '#{@source.title}' uploading...")
     time = Time.now
     records_in = @source.articles.count
     records_created_count = 0
+    @logger.info("Starting '#{@source.title}' uploading...")
+
     articles = scan_articles_list
-    binding.break
     new_articles = select_new(filter_articles(articles))
     new_articles_count = new_articles.count
     
@@ -50,7 +50,7 @@ class ArticlesRetriever
   private
 
   def result_info(time_start:, records_in:, new_articles:, records_created:, errors:, records_out:)
-    "Uploading has been finished.\n
+    "#{@source.title} uploading has been finished.\n
       It took: #{Time.now - time_start} seconds. \n\
       Records in: #{records_in}; \n\
       found new: #{new_articles}; records created: #{records_created}; errors: #{errors.values.flatten.count}\n\
@@ -84,7 +84,7 @@ class ArticlesRetriever
     @logger.info "visiting '#{web_article.url}'"
     @browser.visit @source.base_url + web_article.url
 
-    web_article.title = @browser.find(@source.title_css, wait: 30).text
+    web_article.title = @browser.find(@source.title_css, wait: 120).text
     web_article.body = @browser.find(@source.body_css).text
     web_article.publication_date = DateTime.parse(@browser.find(@source.publication_date_css).text)
   end
