@@ -33,8 +33,9 @@ RSpec.configure do |config|
   #
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
   # config.use_transactional_fixtures = true
-  
+
   config.include FactoryBot::Syntax::Methods
+  config.include FeatureHelpers, type: :feature
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :deletion

@@ -1,11 +1,11 @@
-  .article data-controller="article" data-article-body-is-visible="false" data-action="click->article#click"
-    .article_title 
-      = article.title
-      span.is-size-7 
-        = "  ("
-        = link_to "src", article.url
-        = ", "
-        = date(article.publication_date)
-        = ")"
+.article data-controller="article" data-article-body-is-visible-value="false" data-action="click->article#click contextmenu->article#rightClick" data-article-is-read-value="#{@read_articles.include?(article)}" data-article-id-value="#{article.id}"
+  div.article_title data-article-target="title" 
+    = article.title
+    p.is-size-7 
+      = "  ("
+      = link_to "src", article.url
+      = ", "
+      = date(article.publication_date)
+      = ")"
 
-    p.article_body.hide data-article-target="body" = article.body
+  p.article_body.hide data-article-target="body" = article.body
