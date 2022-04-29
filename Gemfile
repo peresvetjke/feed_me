@@ -69,4 +69,5 @@ end
 
 group :test do
   gem 'database_cleaner-mongoid'
+  gem 'mongoid-rspec'
 end

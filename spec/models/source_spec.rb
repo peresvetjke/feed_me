@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Source, type: :model do
   describe 'associations' do
-    it_behaves_like "has_many", { associations: :articles, dependent_destroy: true }
-
+    it { is_expected.to have_many(:articles).with_dependent(:destroy) }
   end
 
   describe 'validations' do
-    it_behaves_like "validates_presence_of", :title
-    it_behaves_like "validates_presence_of", :base_url
-    it_behaves_like "validates_presence_of", :article_css
-    it_behaves_like "validates_presence_of", :title_css
-    it_behaves_like "validates_presence_of", :body_css
-    it_behaves_like "validates_presence_of", :publication_date_css
-    it_behaves_like "validates_uniqueness_of", :title
+    it { is_expected.to validate_presence_of(:title) }   
+    it { is_expected.to validate_presence_of(:base_url) }   
+    it { is_expected.to validate_presence_of(:article_css) }   
+    it { is_expected.to validate_presence_of(:title_css) }   
+    it { is_expected.to validate_presence_of(:body_css) }   
+    it { is_expected.to validate_presence_of(:publication_date_css) }    
+    it { is_expected.to validate_uniqueness_of(:title) }
   end
 end
