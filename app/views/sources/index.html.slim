@@ -1,0 +1,13 @@
+p.title.is-3 = "Sources"
+
+- @sources.each do |source|
+  - if @list_sources.where(source: source).present?
+    - list_source = @list_sources.find_by(source: source)
+    - assigned_list = list_source.list
+
+  div data-controller="source" data-source-source-id-value="#{source.id}" data-source-list-source-id="#{list_source&.id}"
+    
+    p = source.title
+
+    - if @lists.present?
+      = select_tag :list, options_for_select(current_user.lists.map{|l| [l.title, l.id]}, assigned_list.present? ? [assigned_list.title, assigned_list.id] : nil), prompt: "Select", data: { 'source-target' => 'select', 'action' => 'source#updateList' }

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :source_list do
+  factory :list_source do
     list { nil }
     source { nil }
   end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :list do
-    user { nil }
-    title { "MyString" }
+    association :user, factory: :user
+    title { generate(:title) }
   end
 end

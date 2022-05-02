@@ -6,3 +6,9 @@ import { application } from "./application"
 
 import ArticleController from "./article_controller"
 application.register("article", ArticleController)
+
+import ListController from "./list_controller"
+application.register("list", ListController)
+
+import SourceController from "./source_controller"
+application.register("source", SourceController)

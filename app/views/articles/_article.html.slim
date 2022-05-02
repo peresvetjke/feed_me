@@ -1,11 +1,12 @@
-.article data-controller="article" data-article-body-is-visible-value="false" data-action="click->article#click" data-article-is-read-value="#{@read_articles.include?(article)}" data-article-id-value="#{article.id}"
-  div.article_title data-article-target="title" 
-    = article.title
-    p.is-size-7 
-      = "  ("
-      = link_to "src", article.url
-      = ", "
-      = date(article.publication_date)
-      = ")"
+= turbo_frame_tag dom_id(article)
+  .article data-controller="article" data-article-body-is-visible-value="false" data-action="click->article#click" data-article-is-read-value="#{@read_articles.include?(article)}" data-article-id-value="#{article.id}"
+    div.article_title data-article-target="title" 
+      = article.title
+      p.is-size-7 
+        = "  ("
+        = link_to article.source.title, article.url
+        = ", "
+        = article.publication_date.strftime("%I:%M%p %d/%m/%Y")
+        = ")"
 
-  p.article_body.hide data-article-target="body" = article.body
+    p.article_body.hide data-article-target="body" = article.body

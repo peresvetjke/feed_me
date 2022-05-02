@@ -1,3 +1,19 @@
-p.title.is-3 = "Articles"
+.columns
+  .column.is-2
+    
+    p.title.is-6.mt-5 = "Sources"
+    .sources
+      - @sources.each do |source|
+        = link_to source.title, search_articles_path(:search => {:sources => [source]})
+        br
 
-= render @articles
+    p.title.is-6.mt-5 = "Lists"
+    .lists
+      - @lists.each do |list|
+        = link_to "#{list.title} (#{list.list_sources.count})", search_articles_path(:search => {:lists => [list]})
+        br
+
+  .column.is-10 
+    p.title.is-3 = "Articles"
+    = turbo_stream_from "articles"
+    = render partial: "articles", locals: { articles: @articles }
