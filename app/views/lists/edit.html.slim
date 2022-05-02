@@ -1,0 +1,8 @@
+p.title Edit list
+
+= turbo_frame_tag dom_id(@list)
+  .list
+    - if @list&.errors.present?
+      = render "shared/errors", resource: @list
+
+    = render partial: "form", locals: { list: @list }

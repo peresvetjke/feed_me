@@ -18,7 +18,11 @@ Source.create!(
   publication_date_css: ".GeneralMaterial-head time",
 )
 
-User.create!(
+user = User.create!(
   email: "customer@example.com",
   password: "xxxxxx"
 )
+
+3.times do |l|
+  user.lists.create!(title: "title ##{l+1}")
+end

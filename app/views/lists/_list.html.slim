@@ -1,0 +1,16 @@
+= turbo_frame_tag dom_id(list)
+  .list.columns
+
+    .column.is-3
+      = list.title
+
+    .column.is-5
+
+    .column.is-2
+      .field.is-grouped
+        .control
+           = link_to "Edit", edit_list_path(list), class: "button is-small is-light is-info"
+        .control
+          = link_to "Delete", list_path(list), data: { 'turbo-confirm' => "Are you sure?", "turbo-method" => :delete }, class: "button is-small is-light is-danger"
+        .control
+           / = link_to "Edit sources (#{list.list_sources.length})"

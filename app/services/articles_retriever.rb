@@ -5,6 +5,21 @@ require_relative './support/web_scrapper_headless'
 require_relative './structs/web_article'
 
 class ArticlesRetriever
+  MONTHS = {
+    "января"    => "january",
+    "февраля"   => "february",
+    "марта"     => "march",
+    "апреля"    => "april",
+    "мая"       => "may", 
+    "июня"      => "june", 
+    "июля"      => "july",
+    "августа"   => "august",
+    "сентября"  => "september",
+    "октября"   => "october",
+    "ноября"    => "november",
+    "декабря"   => "december"
+  }
+
   def initialize(source:, logger:)
     @source = source
     @logger = logger
@@ -58,7 +73,7 @@ class ArticlesRetriever
   end
 
   def errors_info(errors)
-    ">>>>> Errors info:\n" + errors.map{ |error, urls| "#{error} (#{urls.count}):\n" + urls.join("\n") + "\n" }.join
+    ">>>>> Errors info:\n" + errors.map{ |error, urls| "> #{error} (#{urls.count}):\n" + urls.join("\n") + "\n" }.join
   end
 
   def main_page_before_scan
@@ -86,7 +101,7 @@ class ArticlesRetriever
 
     web_article.title = @browser.find(@source.title_css, wait: 120).text
     web_article.body = @browser.find(@source.body_css).text
-    web_article.publication_date = DateTime.parse(@browser.find(@source.publication_date_css).text)
+    web_article.publication_date = DateTime.parse(@browser.find(@source.publication_date_css).text.sub(/[а-я]+/, MONTHS))
   end
 
   def get_article_url

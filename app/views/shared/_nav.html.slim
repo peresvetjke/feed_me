@@ -1,6 +1,9 @@
 .navbar-menu
   .navbar-start
-  
+    = link_to "All articles", articles_path, class: "navbar-item"
+    = link_to "Sources", sources_path, class: "navbar-item"
+    = link_to "Lists", lists_path, class: "navbar-item"
+
   .navbar-end
     - if user_signed_in?
       .navbar-item.has-dropdown.is-hoverable.account

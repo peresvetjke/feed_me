@@ -36,4 +36,5 @@ class User
   include Mongoid::Timestamps
 
   has_many :reads, dependent: :destroy
+  has_many :lists, dependent: :destroy
 end

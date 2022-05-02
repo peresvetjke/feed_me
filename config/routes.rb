@@ -8,6 +8,14 @@ Rails.application.routes.draw do
   root to: "articles#index"
 
   resources :articles do
+    get "search", on: :collection
     post "mark_read", on: :member
   end
+
+  resources :sources do
+    post :assign_to_list, on: :member
+    delete :clear_assignment, on: :member
+  end
+  
+  resources :lists
 end

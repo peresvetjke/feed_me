@@ -1,0 +1,14 @@
+= turbo_frame_tag dom_id(list)
+
+  - if list.errors.present?
+    = render "shared/errors", resource: list
+
+  = form_with model: list, \
+              url: list&.persisted? ? list_path(list) : lists_path, \
+              method: list&.persisted? ? :patch : :method, \
+              class: "mt-5" do |f|
+    .field
+      = f.text_field :title, class: "input is-small"
+      = f.submit "Save", class: "button is-small is-success"
+      - if list.persisted?
+        = link_to "Cancel", list_path(list), class: "button is-small"
