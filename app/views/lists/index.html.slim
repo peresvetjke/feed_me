@@ -11,9 +11,3 @@
     = render partial: "lists/form", locals: { list: List.new }
 
   .column.is-2
-
-  .column.is-4
-    p.title.is-3 = "Sources"
-    = turbo_stream_from "#{current_user.id}_list_sources"
-    = render partial: "lists/list_sources/list_sources", locals: { list_sources: nil }
-    

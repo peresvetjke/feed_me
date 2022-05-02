@@ -1,7 +1,0 @@
-= turbo_frame_tag "#{current_user}_list_sources"
-- if list_sources.present?
-  / - list_sources.each do |list_source|
-  /   = render
-  = render "form", locals: {list_source: ListSource.new}
-- else
-  p = "Choose list to view and edit its sources"

@@ -19,7 +19,6 @@ class ArticlesRetriever
     "ноября"    => "november",
     "декабря"   => "december"
   }
-  # DateTime.parse('2 мая 2022'.sub(/[а-я]+/, MONTHS))
 
   def initialize(source:, logger:)
     @source = source

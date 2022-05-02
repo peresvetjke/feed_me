@@ -6,14 +6,7 @@ export default class extends Controller {
 
   static values = { sourceId: String, listSourceId: String }
 
-  connect() {
-    console.log('source connected')
-    // console.log(this.idValue)
-    // console.log(this.selectTarget.value)
-  }
-
   updateList() {
-    // console.log(this.selectTarget.value)
     if (this.selectTarget.value == '') {
       this.clearAssignment()
     } else {
@@ -39,13 +32,6 @@ export default class extends Controller {
         options.data = JSON.stringify(params)
         return true
       }
-      // ,
-      // success(data) {
-      //   // console.log('success')
-      // },
-      // error: function(data) {
-      //   alert("Error occured. Please contact administrator.")
-      // }
     })
   }
 
@@ -63,13 +49,6 @@ export default class extends Controller {
         options.data = JSON.stringify(params)
         return true
       }
-      // ,
-      // success(data) {
-      //   console.log('success')
-      // },
-      // error: function(data) {
-      //   alert("Error occured. Please contact administrator.")
-      // }
     })
   }
 }

@@ -18,18 +18,4 @@ Rails.application.routes.draw do
   end
   
   resources :lists
-  # resources :lists, shallow: true do
-  #   resources :sources
-  # end
-
-  resources :list_sources, only: [:create, :destroy]
-  
-  # do
-  #   resources :articles, only: :index
-  # end
-
-  
-  # do
-  #   resources :articles, only: :index
-  # end  
 end
