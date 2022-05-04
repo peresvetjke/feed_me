@@ -48,6 +48,7 @@ gem 'webdrivers'
 gem 'pry'
 gem 'slim-rails'
 gem 'devise'
+gem 'delayed_job_mongoid'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

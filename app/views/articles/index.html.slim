@@ -1,6 +1,10 @@
 .columns
   .column.is-2
     
+    br
+    br
+    = button_to "Update!", retrieve_updates_articles_path
+
     p.title.is-6.mt-5 = "Sources"
     .sources
       - @sources.each do |source|

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :articles do
     get "search", on: :collection
     post "mark_read", on: :member
+    post "retrieve_updates", on: :collection
   end
 
   resources :sources do

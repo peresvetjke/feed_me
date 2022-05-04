@@ -99,7 +99,8 @@ class ArticlesRetriever
     @logger.info "visiting '#{web_article.url}'"
     @browser.visit @source.base_url + web_article.url
 
-    web_article.title = @browser.find(@source.title_css, wait: 120).text
+    web_article.title = @browser.find(@source.title_css).text
+    # web_article.title = @browser.find(@source.title_css, wait: 120).text
     web_article.body = @browser.find(@source.body_css).text
     web_article.publication_date = DateTime.parse(@browser.find(@source.publication_date_css).text.sub(/[а-я]+/, MONTHS))
   end
