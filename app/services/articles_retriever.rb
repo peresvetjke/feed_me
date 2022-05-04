@@ -5,8 +5,6 @@ require_relative './support/web_scrapper_headless'
 require_relative './structs/web_article'
 
 class ArticlesRetriever
-  # include Turbo::Broadcastable
-
   MONTHS = {
     "января"    => "january",
     "февраля"   => "february",
