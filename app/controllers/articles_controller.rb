@@ -4,6 +4,10 @@ class ArticlesController < ApplicationController
   def index
   end
 
+  def retrieve_updates
+    UpdatesManager.new.delay.call
+  end
+
   def search
     if search_params[:lists].present?
       list = List.find(BSON::ObjectId.from_string(search_params[:lists].first))

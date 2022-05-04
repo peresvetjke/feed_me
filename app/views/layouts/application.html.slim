@@ -15,6 +15,7 @@ html
   body
     = render "shared/nav"
 
+    = turbo_stream_from "notice"
     = render "shared/notice"
     p.alert = alert
       
