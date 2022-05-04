@@ -9,17 +9,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    if search_params[:lists].present?
-      list = List.find(BSON::ObjectId.from_string(search_params[:lists].first))
-      sources = list.list_sources.map{ |list_source| list_source.source }
-    elsif search_params[:sources].present?
-      sources = search_params[:sources].map { |id| BSON::ObjectId.from_string(id) }
-    else
-      sources = Source.all
-    end
-    
-    articles = Article.where(:source.in => sources)
-
+    articles = Article.search_articles(search_params)
     render turbo_stream: turbo_stream.replace("#{current_user.id}_articles", partial: "articles", locals: { articles: articles })
   end
 
@@ -39,6 +29,7 @@ class ArticlesController < ApplicationController
 
   def search_params
     params.require(:search).permit(
+      :query,
       sources: [], 
       lists: []
     )

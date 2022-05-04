@@ -4,7 +4,7 @@
       = article.title
       p.is-size-7 
         = "  ("
-        = link_to article.source.title, article.url
+        = link_to article.source.title, article.source.base_url + article.url
         = ", "
         = article.publication_date.strftime("%I:%M%p %d/%m/%Y")
         = ")"
