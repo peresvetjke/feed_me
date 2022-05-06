@@ -18,6 +18,8 @@ class Article
 
   validates :title, presence: true
   validates :body, presence: true
+  validates :url, presence: true
+  validates :publication_date, presence: true
 
   def self.search_articles(query_params)
     if query_params[:query].present?
@@ -52,7 +54,7 @@ class Article
     end
   end
 
-  def as_indexed_json 
+  def as_indexed_json(options = {})
     as_json(except: [:id, :_id]) 
   end 
 end

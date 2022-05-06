@@ -35,6 +35,8 @@ class User
   # field :locked_at,       type: Time
   include Mongoid::Timestamps
 
+  field :time_zone, type: String, default: "Moscow"
+  
   has_many :reads, dependent: :destroy
   has_many :lists, dependent: :destroy
 end

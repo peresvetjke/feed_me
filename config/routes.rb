@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   end
   
   resources :lists
+
+  get "account", to: "users#show"
+  resources :users, only: [:show, :update]
 end

@@ -8,9 +8,10 @@
     - if user_signed_in?
       .navbar-item.has-dropdown.is-hoverable.account
         .navbar-link
-          = current_user.email
+          = link_to current_user.email, account_path
 
         .navbar-dropdown
+          = link_to "Account", account_path, class: "navbar-item"
           = link_to "Sign out", destroy_user_session_path, class: "navbar-item"
 
     - else
