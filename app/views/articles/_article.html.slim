@@ -6,7 +6,7 @@
         = "  ("
         = link_to article.source.title, article.source.base_url + article.url
         = ", "
-        = article.publication_date.strftime("%I:%M%p %d/%m/%Y")
+        = article.publication_date.in_time_zone(current_user.time_zone).strftime("%I:%M%p %d/%m/%Y")
         = ")"
 
     p.article_body.hide data-article-target="body" = article.body
