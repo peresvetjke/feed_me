@@ -9,7 +9,6 @@ class Source
   field :body_xpath, type: String
   field :publication_date_xpath, type: String
   field :time_zone, type: String, default: "Moscow"
-  # field :news_page_title, type: String
 
   has_many :articles, dependent: :destroy
   has_many :list_sources, dependent: :destroy
@@ -19,7 +18,6 @@ class Source
   validates :title_xpath, presence: true
   validates :body_xpath, presence: true
   validates :publication_date_xpath, presence: true
-  # validates :news_page_title, presence: true
 
   def assigned_list(user)
     lists_ids = user.lists.only(:_id).map(&:id)

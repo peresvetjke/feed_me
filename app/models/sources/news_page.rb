@@ -1,4 +1,5 @@
 class Sources::NewsPage < Sources::BrowserContainer
+  
   def open
     @browser.goto @source.base_url + @source.articles_path
     Watir::Wait.until { loaded? }

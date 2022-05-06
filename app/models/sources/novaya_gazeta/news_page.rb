@@ -1,5 +1,5 @@
 class Sources::NovayaGazeta::NewsPage < Sources::NewsPage
-  # news_page = Sources::NovayaGazeta::NewsPage.new(source: Source.last)
+  
   LOAD_MORE = "Загрузить ещё"
 
   def open

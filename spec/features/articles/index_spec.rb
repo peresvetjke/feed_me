@@ -18,10 +18,6 @@ feature 'User can index articles', %q{
       end
     end
 
-    describe "presented time" do
-
-    end
-
     describe "display body" do
       describe "on load" do
         it "does not display body" do
