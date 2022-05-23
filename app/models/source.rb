@@ -5,6 +5,7 @@ class Source
   field :title, type: String
   field :base_url, type: String
   field :news_url, type: String
+  field :time_zone, type: String
 
   has_many :articles, dependent: :destroy
   has_many :list_sources, dependent: :destroy

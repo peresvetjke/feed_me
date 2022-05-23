@@ -1,12 +1,14 @@
 Source.create!(
   title: "Новая газета",
   base_url: "https://novayagazeta.eu",
-  news_url: "https://novayagazeta.eu/news"
+  news_url: "https://novayagazeta.eu/news",
+  time_zone: "Moscow"
 )
 
 Source.create!(
   title: "Медуза",
-  base_url: "https://meduza.io"
+  base_url: "https://meduza.io",
+  time_zone: "Moscow"
 )
 
 user = User.create!(

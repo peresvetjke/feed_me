@@ -12,14 +12,14 @@ class UpdatesManager
                       },
   }
 
-  def initialize(sources: nil, logger: nil)
+  def initialize(sources: nil, logger: nil, browser_klass: Watir::Browser)
     @sources = sources || Source.all
     @logger = logger || Logger.new("#{Rails.root}/log/updates_manager.log")
-    @browser = Watir::Browser
+    @browser_klass = browser_klass
   end
 
   def call
-    @browser.new
+    @browser = @browser_klass.new
     notice "We've started an Updating job and will inform you when it's been finished."
     @sources.each do |source|
       with_logging("'#{source.title}' retrieving") do

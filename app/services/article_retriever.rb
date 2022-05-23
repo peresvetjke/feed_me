@@ -18,11 +18,11 @@ class ArticleRetriever
   protected
 
 =begin
-  Declare sub-class where:
-  1) define the methods which retrieve from doc - title, body and date _elements_
-      - get_title
-      - get_body
-      - get_date
+  Declare sub-class where define the methods which retrieve elements from doc:
+    1) get_title
+    2) get_body
+    3) get_date
+  Title, body and date _elements_ should be retrieved.
 =end
 
   attr_reader :logger
