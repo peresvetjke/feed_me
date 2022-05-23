@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   end
 
   def retrieve_updates
-    UpdatesManager.new.delay.call
+    UpdateArticlesJob.perform_async
   end
 
   def search

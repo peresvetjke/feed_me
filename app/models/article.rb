@@ -18,7 +18,7 @@ class Article
 
   validates :title, presence: true
   validates :body, presence: true
-  validates :url, presence: true
+  validates :url, presence: true, uniqueness: true
   validates :publication_date, presence: true
 
   def self.search_articles(query_params)

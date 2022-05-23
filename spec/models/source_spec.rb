@@ -7,11 +7,9 @@ RSpec.describe Source, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:title) }   
-    it { is_expected.to validate_presence_of(:base_url) }   
-    it { is_expected.to validate_presence_of(:title_xpath) }   
-    it { is_expected.to validate_presence_of(:body_xpath) }   
-    it { is_expected.to validate_presence_of(:publication_date_xpath) }    
+    it { is_expected.to validate_presence_of(:base_url) }
     it { is_expected.to validate_uniqueness_of(:title) }
+    it { is_expected.to validate_uniqueness_of(:base_url) }
   end
 
   describe "#assigned_list" do
