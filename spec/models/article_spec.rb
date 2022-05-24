@@ -9,5 +9,8 @@ RSpec.describe Article, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:body) }
+    it { is_expected.to validate_presence_of(:publication_date) }
+    it { is_expected.to validate_presence_of(:url) }
+    it { is_expected.to validate_uniqueness_of(:url) }
   end
 end

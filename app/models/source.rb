@@ -4,20 +4,14 @@ class Source
 
   field :title, type: String
   field :base_url, type: String
-  field :articles_path, type: String
-  field :title_xpath, type: String
-  field :body_xpath, type: String
-  field :publication_date_xpath, type: String
-  field :time_zone, type: String, default: "Moscow"
+  field :news_url, type: String
+  field :time_zone, type: String
 
   has_many :articles, dependent: :destroy
   has_many :list_sources, dependent: :destroy
 
   validates :title, presence: true, uniqueness: true
-  validates :base_url, presence: true
-  validates :title_xpath, presence: true
-  validates :body_xpath, presence: true
-  validates :publication_date_xpath, presence: true
+  validates :base_url, presence: true, uniqueness: true
 
   def assigned_list(user)
     lists_ids = user.lists.only(:_id).map(&:id)
