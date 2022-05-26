@@ -24,12 +24,12 @@ class ArticleRetriever
     log("Article saved! It took #{(Time.now - start_time).round} seconds total to perform the job.")
   end
 
-  protected
-
   def url
     @source.base_url + @url_path
   end
   
+  protected
+
   def scrapping_driver
     raise "Not implemented for abstract class: method 'scrapping_driver' was called."
   end
