@@ -1,45 +1,18 @@
 class UpdatesManager
   include MyLogger
 
-  RETRIEVERS = { 
-    "Новая газета" => {
-                        news: NovayaGazetaNewsRetriever,
-                        article: NovayaGazetaArticleRetriever
-                      },
-    "Медуза"       => {
-                        news: MeduzaNewsRetriever,
-                        article: MeduzaArticleRetriever
-                      },
-  }
-
-  def initialize(sources: nil, logger: nil, browser_klass: Watir::Browser)
+  def initialize(sources: nil)
     @sources = sources || Source.all
-    @logger = logger || Logger.new("#{Rails.root}/log/updates_manager.log")
-    @browser_klass = browser_klass
   end
 
   def call
-    @browser = @browser_klass.new
-    notice "We've started an Updating job and will inform you when it's been finished."
+    # notice "We've started an Updating job and will inform you when it's been finished."
     @sources.each do |source|
       with_logging("'#{source.title}' retrieving") do
-        article_retriever = RETRIEVERS[source.title][:article].new(
-          browser: @browser,
-          source: source,
-          logger: @logger
-        )
-
-        news_retriever = RETRIEVERS[source.title][:news].new(
-          article_retriever: article_retriever,
-          browser: @browser,
-          source: source,
-          logger: @logger
-        ).call  
+        NewsScrapJob.perform_async(source.title)
       end
     end
-    notice "New articles have been loaded. Please update page."
-  ensure
-    with_logging("close_browser") { close_browser }
+    # notice "New articles have been loaded. Please update page."
   end
 
   private
@@ -48,9 +21,5 @@ class UpdatesManager
 
   def notice(message)
     Turbo::StreamsChannel.broadcast_update_to('notice', target: 'notice', partial: 'shared/notice', locals: { notice: message } )
-  end
-
-  def close_browser
-    @browser.close
   end
 end

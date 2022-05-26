@@ -1,4 +1,11 @@
 class Source
+  
+  # Configure services with relevant titles in order to retrieve news.
+  TITLES = {
+    "Новая газета" => "NovayaGazeta",
+    "Медуза"       => "Meduza",
+  }
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -42,5 +49,17 @@ class Source
     if assigned_list(user).present?
       list_source = ListSource.where(list: assigned_list(user), source: self).first.destroy!
     end
+  end
+
+  def article_retriever_class
+    Object.const_get("#{TITLES[title]}ArticleRetriever")
+  end
+
+  def news_retriever_class
+    Object.const_get("#{TITLES[title]}NewsRetriever")
+  end
+
+  def retrieve_news
+    NewsScrapJob.perform_async(self.title)
   end
 end
