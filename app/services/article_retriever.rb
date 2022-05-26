@@ -1,8 +1,6 @@
 class ArticleRetriever
   include MyLogger
 
-  # attr_reader :url 
-
   def initialize(source)
     @source = source
     @url_path = nil
@@ -26,6 +24,12 @@ class ArticleRetriever
     log("Article saved! It took #{(Time.now - start_time).round} seconds total to perform the job.")
   end
 
+  protected
+
+  def url
+    @source.base_url + @url_path
+  end
+  
   def scrapping_driver
     raise "Not implemented for abstract class: method 'scrapping_driver' was called."
   end
@@ -50,15 +54,9 @@ class ArticleRetriever
     get_title.present? && get_title.text.present?
   end
 
-  # protected
-
   def open_article_page
     scrapping_driver.open_page
     scrapping_driver.wait_until { |page| page.loaded? }
-  end
-
-  def url
-    @source.base_url + @url_path
   end
  
   def get_article_params

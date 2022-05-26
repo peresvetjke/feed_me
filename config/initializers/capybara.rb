@@ -1,9 +1,5 @@
-# require_relative "#{Rails.root}/app/modules/instance_counter.rb"
-
 module Capybara
   class Session
-    # include InstanceCounter
-
     def initialize(mode, app = nil)
       if app && !app.respond_to?(:call)
         raise TypeError, 'The second parameter to Session::new should be a rack app if passed.'
@@ -30,10 +26,5 @@ module Capybara
       end
       @touched = false
     end
-
-    # def destroy
-    #   quit
-    #   remove_instance
-    # end
   end
 end

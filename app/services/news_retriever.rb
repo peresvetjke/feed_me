@@ -4,7 +4,7 @@ class NewsRetriever
   def initialize(source)
     @source = source
     @articles_urls = []
-    @scrapping_driver = nil # define it in sub-clasees
+    @scrapping_driver = nil
   end
 
   def call
@@ -28,6 +28,13 @@ class NewsRetriever
 
   protected
 
+  # Define in a sub-class what scrapping driver you would like to use.
+  #
+  # Example: 
+  # @scrapping_driver ||= ScrappingDrivers::CapybaraScrappingDriver.new(self) 
+  # or
+  # @scrapping_driver ||= ScrappingDrivers::OpenUriScrappingDriver.new(self)
+  # 
   def scrapping_driver
     raise "Not implemented for abstract class: method 'scrapping_driver' was called."
   end
@@ -41,7 +48,8 @@ class NewsRetriever
     raise "Not implemented for abstract class: method 'get_articles_urls' was called."
   end
 
-  # Add logic in sub-classes, if you need click "Load more" button and so on. 
+  # If you need click "Load more" button or smth like that after main page load 
+  # - add logic in sub-classes. 
   #
   # Example:
   # super

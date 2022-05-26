@@ -14,7 +14,7 @@ module MyLogger
     logger.debug( message )
   end
 
-  def with_logging(description, escape_raise: false)
+  def with_logging(description)
     logger = ArticlesUpdatesLogger.instance
     begin
       logger.debug( "Starting #{description}" )
@@ -23,7 +23,7 @@ module MyLogger
     rescue => e
       logger.error( "#{description} failed!!")
       logger.error( e )
-      raise unless escape_raise
+      raise
     end
   end
 end

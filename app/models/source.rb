@@ -1,6 +1,6 @@
 class Source
   
-  # configure services with relevant titles
+  # Configure services with relevant titles in order to retrieve news.
   TITLES = {
     "Новая газета" => "NovayaGazeta",
     "Медуза"       => "Meduza",

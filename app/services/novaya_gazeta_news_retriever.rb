@@ -1,5 +1,4 @@
 class NovayaGazetaNewsRetriever < NewsRetriever
-  
   def articles_urls
     doc.xpath("//article").map { |article| article.xpath("..") }.map { |a| a.attr('href').value }
   end
