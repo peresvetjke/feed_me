@@ -1,6 +1,11 @@
 class NovayaGazetaArticleRetriever < ArticleRetriever
   private
 
+  def scrapping_driver
+    @scrapping_driver ||= ScrappingDrivers::CapybaraScrappingDriver.new(self)
+    # @scrapping_driver ||= WatirScrappingDriver.new(retriever: self) # , url: url
+  end
+
   def get_title
     doc.xpath("//h1")
   end

@@ -44,7 +44,7 @@ gem "sassc-rails"
 
 gem 'mongoid'
 gem 'capybara'
-gem 'webdrivers'
+gem 'webdrivers', '~> 5.0', require: false
 gem 'pry'
 gem 'slim-rails'
 gem 'devise'

@@ -1,4 +1,8 @@
 class MeduzaArticleRetriever < ArticleRetriever
+  def scrapping_driver
+    @scrapping_driver ||= ScrappingDrivers::CapybaraScrappingDriver.new(self)
+  end
+
   def get_title
     doc.xpath("//h1")
   end

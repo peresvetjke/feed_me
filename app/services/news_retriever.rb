@@ -1,63 +1,73 @@
 class NewsRetriever
   include MyLogger
 
-  def initialize(article_retriever:, source:, logger:, browser: Watir::Browser.new)
-    @browser = browser
-    @articles_urls = []
+  def initialize(source)
     @source = source
-    @article_retriever = article_retriever
-    @logger = logger
+    @articles_urls = []
+    @scrapping_driver = nil # define it in sub-clasees
   end
 
   def call
-    with_logging("open_main_page")    { open_main_page }
-    with_logging("load_more")         { load_more }
-    with_logging("get_articles_urls") { get_articles_urls }
-    with_logging("filter_new_articles_urls") { filter_new_articles_urls }
-    with_logging("save_articles")     { save_articles }
+    time_start = Time.now
+
+    with_logging("create_session") { scrapping_driver.create_session } if scrapping_driver.is_a? ScrappingDrivers::SessionScrappingDriver
+    with_logging("open_main_page") { open_main_page }
+    with_logging("get_articles_urls") { @articles_urls = articles_urls }
+    with_logging("filter_new_articles_urls") { @articles_urls = filter_new_articles_urls(@articles_urls) }
+    with_logging("save_articles") { save_articles(@articles_urls) }
+    log("Articles retrieve jobs (#{@articles_urls.count}) created! It took #{(Time.now - time_start).round} seconds total to perform the job.")
+  ensure
+    if scrapping_driver.is_a? ScrappingDrivers::SessionScrappingDriver
+      with_logging("close_session") { scrapping_driver.destroy_session }
+    end
+  end
+
+  def url
+    @source.news_url.present? ? @source.news_url : @source.base_url
   end
 
   protected
 
-=begin
-  Declare sub-class where:
-  1) define BASE_URL. define NEWS_URL too in case it's different from BASE_URL.
-  2) define load_more method if needed.
-  3) define get_articles_urls, where
-     - parse main page 
-     - save urls list in @articles_urls 
-=end
-
-  attr_reader :logger
-
-  def open_main_page
-    @browser.goto @source.news_url.present? ? @source.news_url : @source.base_url
-    Watir::Wait.until { loaded? }
+  def scrapping_driver
+    raise "Not implemented for abstract class: method 'scrapping_driver' was called."
   end
 
-  def load_more
-  end
-
-  def get_articles_urls
+  # Define in sub-class the way of getting urls list from main page.
+  #
+  # Example: 
+  # doc.xpath("//article").map { |article| article.xpath("..") }.map { |a| a.attr('href').value }
+  #
+  def articles_urls
     raise "Not implemented for abstract class: method 'get_articles_urls' was called."
   end
 
-  def filter_new_articles_urls
-    existing_urls = @source.articles.pluck(:url)
-    @articles_urls = @articles_urls.delete_if { |url| existing_urls.include?(url) }
-  end
-
-  def save_articles
-    @articles_urls.each do |url| 
-      @article_retriever.retrieve_article(url)
-    end
+  # Add logic in sub-classes, if you need click "Load more" button and so on. 
+  #
+  # Example:
+  # super
+  # current_urls_count = page.articles_urls.count
+  # scrapping_driver.click "Загрузить ещё"
+  # scrapping_driver.wait_until { |page| page.articles_urls.count > current_urls_count }
+  #
+  def open_main_page
+    scrapping_driver.open_page
+    scrapping_driver.wait_until { |page| page.loaded? }
   end
 
   def doc
-    Nokogiri::HTML.parse(@browser.html)
+    Nokogiri::HTML.parse(scrapping_driver.html)
+  end
+  
+  def loaded?
+    articles_urls.count > 0
   end
 
-  def loaded?
-    get_articles_urls.count > 0
+  def filter_new_articles_urls(articles_urls)
+    existing_urls = @source.articles.pluck(:url)
+    @articles_urls.select { |url| !existing_urls.include?(url) }
+  end
+
+  def save_articles(articles_urls)
+    @articles_urls.each { |url| ArticleScrapJob.perform_async(@source.title, url) }
   end
 end
